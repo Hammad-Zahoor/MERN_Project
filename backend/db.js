@@ -9,7 +9,7 @@ const mongoDB = async () => {
       await mongoose.connect(mongo_url);
       console.log('Connected to MongoDB');
   
-      const fetched_data = await mongoose.connection.db.collection("Tutor");
+      const fetched_data = await mongoose.connection.db.collection("users");
       console.log('Fetching data from collection...');
       const data = await fetched_data.find({}).toArray();
       //console.log('Data retrieved:', data);
@@ -23,5 +23,3 @@ const mongoDB = async () => {
   
   module.exports = mongoDB;
   
-
-module.exports = mongoDB;

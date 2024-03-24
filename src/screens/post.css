@@ -1,0 +1,37 @@
+.post{
+    margin-top: 85px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 700px;
+}
+
+.post-text{
+    width: 500px;
+    height: 150px;
+    border: 2px solid red;
+    background-color: rgb(224, 190, 190);
+    font-size: 15px;
+}
+
+.post-pic{
+    width: 250px;
+    height: 250px;
+    border: 2px solid black;
+margin-top: 10px;
+}
+
+.post-button{
+    width: 100px;
+    height: 50px;
+    background-color: red;
+    color: white;
+margin-top: 10px;
+}
+
+.post-button:hover{
+    width: 110px;
+    font-weight: bold;
+    color: yellow;
+}

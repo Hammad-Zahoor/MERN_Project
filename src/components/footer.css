@@ -6,4 +6,6 @@
     height: 40px;
     justify-content: center;
     margin-top: 30px;
+    bottom: 0;
+    position: fixed;
 }

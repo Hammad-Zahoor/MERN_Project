@@ -4,6 +4,7 @@
     align-items: center; 
     margin-top: 85px;
     flex-direction: column;
+    margin-bottom: 80px;
 }
 
 .search-input {

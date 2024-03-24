@@ -21,6 +21,7 @@ app.use((req,res,next)=>{
 app.use(express.json())
 app.use('/api',require("./Routes/create_user"))
 app.use('/api',require("./Routes/display_profile"))
+app.use('/api',require("./Routes/create_post"))
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
