@@ -27,7 +27,8 @@ router.post("/create_user",
                 email: req.body.email,
                 password: sec_password,
                 major: req.body.major,
-                role: req.body.role
+                role: req.body.role,
+                image: req.body.image
             });
 
             res.json({ success: true });
@@ -72,6 +73,7 @@ router.post("/signin_user",
             res.status(500).json({ success: false });
         }
     });
+
 
 
 module.exports = router;

@@ -2,6 +2,10 @@ const express = require('express')
 const app = express()
 const port = 5000
 const mongoDB = require("./db")
+const firebase = require("firebase/compat/app");
+
+const firebaseConfig = {};
+firebase.initializeApp(firebaseConfig);
 
 app.get('/', (req, res) => {
     res.send('Hello World!')

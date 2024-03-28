@@ -7,14 +7,13 @@ router.post("/create_post", async (req, res) => {
         // Create a new post based on the request body
         const newPost = await profile.create({
             caption: req.body.caption,
-            image: req.body.image
+            image: req.body.image,
+            likes: req.body.likes,
+            comments: req.body.comments,
         });
 
-        // Log the request body for debugging
-        console.log(req.body);
-
         // Respond with success and the ID of the new post
-        res.json({ success: true, postId: newPost._id });
+        res.json({ success: true });
     } catch (error) {
         console.error(error);
         // Handle specific Mongoose validation errors
@@ -26,5 +25,15 @@ router.post("/create_post", async (req, res) => {
         res.status(500).json({ success: false, error: 'Internal server error' });
     }
 });
+
+router.get('/get_post', async (req, res) => {
+    try {
+      const data = await profile.find();
+      res.json(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      res.status(500).json({ error: 'Error fetching data' });
+    }
+  });
 
 module.exports = router;

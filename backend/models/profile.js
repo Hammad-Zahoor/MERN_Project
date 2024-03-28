@@ -10,6 +10,14 @@ const profileSchema = new Schema({
         type:String,
         required:false
     },
+    likes:{
+        type:Number,
+        required:false
+    },
+    comments:{
+        type:[String],
+        required:false
+    },
     date:{
         type:Date,
         default:Date.now
