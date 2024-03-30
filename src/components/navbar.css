@@ -39,6 +39,16 @@ justify-content: space-between;
     font-size: 20px;
 }
 
+.navbar-pages-button{
+    color:yellow;
+    background-color: black;
+    font-size: 15px;
+}
+
+.navbar-pages-button:hover{
+    color:red;
+}
+
 .navbar-pages:hover{
     font-size: 22px;
     color: yellow;

@@ -18,6 +18,10 @@ const profileSchema = new Schema({
         type:[String],
         required:false
     },
+    userID:{
+        type:String,
+        required:true
+    },
     date:{
         type:Date,
         default:Date.now

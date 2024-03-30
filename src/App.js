@@ -8,6 +8,7 @@ import {
 import Sign_in from "./screens/sign_in";
 import Sign_up from "./screens/sign_up";
 import Post from "./screens/post";
+import Search from "./screens/search";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/Sign_in" element={<Sign_in/>}></Route>
         <Route exact path="/Sign_up" element={<Sign_up/>}></Route>
         <Route exact path="/Post" element={<Post/>}></Route>
+        <Route exact path="/Search" element={<Search/>}></Route>
       </Routes></div>
     </Router>
   );

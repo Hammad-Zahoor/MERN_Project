@@ -13,6 +13,10 @@
     border-radius: 10px;
 }
 
+.profile-caption{
+    text-align: center;
+}
+
 .image-post {
     display: flex;
     flex-direction: column;
@@ -50,7 +54,7 @@ width:500px;
 
 .profile-post{
     width: 800px;
-    height: 400px;
+    height: 480px;
     border: 2px solid black;
     display: flex;
     flex-direction: column;

@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 export default function Profile() {
 
   const [profile, setprofile] = useState([])
+  const [post_profile, setpost_profile] = useState([]);
+
   const load_data = async () => {
     let response = await fetch("http://localhost:5000/api/profile_data", {
       method: "POST",
@@ -18,27 +20,43 @@ export default function Profile() {
     response = await response.json()
     setprofile(response)
     //console.log("data:",response)
-    //console.log("profile",profile)
+    //console.log("profile", profile)
+  }
+
+  const fetchData = async () => {
+    try {
+      const authToken = localStorage.getItem("auth_token");
+      //console.log(authToken)
+      const response = await fetch("http://localhost:5000/api/get_profile_post", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${authToken}`,
+          "Content-Type": "application/json"
+        }
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+      const data = await response.json();
+      setpost_profile(data);
+      //console.log(data); // Log the fetched data for debugging
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+
   }
 
   useEffect(() => {
     load_data()
+    fetchData()
   }, [])
 
   return (
     <>
       <Navbar />
       <div className='profile-body'>
-      {
-      profile !== [] ? (
-          profile.map((item, index) => (
-            <div key={index}>{item[0].name}</div>
-          ))
-        ) : (
-          <div>No data available</div>
-        )}
 
-        <img className='profile-pic'></img>
+        <img className='profile-pic' src={profile.length !== 0 ? profile[0][0].image : 'No data available'}></img>
         <form action="/upload" method="POST" enctype="multipart/form-data" className='image-post'>
           <input type="file" id="imageInput" name="image" accept="image/*" className='profile-image'></input>
           <label for="imageInput" class="custom-file-input-label">+</label>
@@ -65,16 +83,25 @@ export default function Profile() {
           POSTS
         </h1>
 
-        <div className='profile-post'>
-          <image className='post-image'></image>
-          <div className='post-likes'>
-            <button>Like</button>
-            <button>Comment</button>
+        {post_profile.map((post, index) => (
+          <div key={index}>
+            <div className='profile-post'>
+              <h4 className='profile-caption'>"{post.caption}"</h4>
+              <img src={post.length !== 0 ? post.image : 'No data available'} alt='Post' className='post-image' />
+              <div className='post-likes'>
+                <h4>{post.length !== 0 ? post.likes : 'No data available'}</h4>
+                <button>Like</button>
+                <h4>Comment</h4>
+                <button>Comment</button>
+              </div>
+            </div>
           </div>
-        </div>
+        ))}
 
       </div>
       <Footer />
+
+
     </>
   )
 }

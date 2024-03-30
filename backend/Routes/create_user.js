@@ -67,6 +67,7 @@ router.post("/signin_user",
             }
 
             const authtoken = jwt.sign(data,jwt_secret)
+            //console.log(authtoken)
             res.json({ success: true ,authToken: authtoken});
         } catch (error) {
             console.error(error);

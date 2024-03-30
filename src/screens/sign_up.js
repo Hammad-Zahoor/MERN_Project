@@ -2,11 +2,39 @@ import React, { useState } from 'react';
 import "../screens/sign_up.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import firebase from "firebase/compat/app"
+import "firebase/compat/storage"
+import 'firebase/compat/auth';
+import firebaseConfig from './firebase';
 
 export default function Sign_up() {
-    const [details, setDetails] = useState({ name: "", email: "", password: "", education: "", major: "", role: "student" });
+    const [details, setDetails] = useState({ name: "", email: "", password: "", education: "", major: "", role: "student", image: "" });
     const navigate = useNavigate();
+    firebase.initializeApp(firebaseConfig);
+
+    const handle_fileupload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const storageRef = firebase.storage().ref(); // Corrected method call
+            const fileRef = storageRef.child(file.name);
+            fileRef.put(file)
+                .then((snapshot) => {
+                    snapshot.ref.getDownloadURL()
+                        .then((downloadURL) => { // Changed variable name to camelCase
+                            console.log(downloadURL);
+                            setDetails({ ...details, image: downloadURL }); // Changed variable name to camelCase
+                        })
+                        .catch((error) => {
+                            console.error("Error getting download URL:", error);
+                        });
+                })
+                .catch((error) => {
+                    console.error("Error uploading file:", error);
+                });
+        } else {
+            console.log("No file selected");
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,6 +76,10 @@ export default function Sign_up() {
                         <input className='signup-input' type='password' placeholder='Enter Password' name='password' value={details.password} onChange={onChange}></input>
                         <input className='signup-input' type='text' placeholder='Enter Education Center Name' name='education' value={details.education} onChange={onChange}></input>
                         <input className='signup-input' type='text' placeholder='Enter Major' name='major' value={details.major} onChange={onChange}></input>
+                        <form action="/upload" method="POST" enctype="multipart/form-data" className='image-signup'>
+                            <input type="file" id="imageInput" onChange={handle_fileupload} name="image" accept="image/*" className='profile-image'></input>
+                            <label for="imageInput" class="custom-file-input-label">Upload Profile Image</label>
+                        </form>
                         <div className="toggle-list">
                             <h4>Do you want to Sign-up as Student or Tutor</h4>
                             <label className="toggle-item">

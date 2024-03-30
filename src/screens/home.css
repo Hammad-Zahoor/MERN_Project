@@ -15,6 +15,11 @@
     height: 30px;
 }
 
+.home-post-like:hover{
+background-color: blue;
+width: 105px;
+}
+
 .search-button{
 width: 100px;
 height: 28px;

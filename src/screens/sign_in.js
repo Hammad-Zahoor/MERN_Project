@@ -20,13 +20,13 @@ export default function Sign_in() {
     });
     try {
       const json = await response.json();
-      console.log(json);
+      //console.log(json);
       if (!json.success) {
         alert("Enter valid credentials");
       }
       else {
-        localStorage.setItem("auth_token",json.authtoken);
-        console.log(localStorage.getItem("auth_token"))
+        localStorage.setItem("auth_token",json.authToken);
+        //console.log(localStorage.getItem("auth_token"))
         navigate("/");
       }
     } catch (error) {
