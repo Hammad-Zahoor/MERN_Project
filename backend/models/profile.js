@@ -10,9 +10,16 @@ const profileSchema = new Schema({
         type:String,
         required:false
     },
-    likes:{
+    likes: {
+        type: [Schema.Types.ObjectId],
+        ref: 'user', 
+        default: [],
+        required:false,
+      },
+    likes_count:{
         type:Number,
-        required:false
+        required:false,
+        default:0
     },
     comments:{
         type:[String],
