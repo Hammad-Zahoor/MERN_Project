@@ -19,6 +19,7 @@ router.post("/create_post", async (req, res) => {
         });
 
         //console.log(newPost);
+        
 
         // Respond with success and the ID of the new post
         res.json({ success: true });
