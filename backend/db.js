@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-const mongo_url = `mongodb+srv://zahoorhammad9212:Pk2520025_Hammad@cluster0.1biulvv.mongodb.net/Tutor?retryWrites=true&w=majority&appName=Cluster0`;
+const mongo_url = ``;
 
 const mongoDB = async () => {
     try {
