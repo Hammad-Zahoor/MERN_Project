@@ -15,11 +15,11 @@ router.post("/create_post", async (req, res) => {
             image: req.body.image,
             likes_count: req.body.likes_count,
             comments: req.body.comments,
-            userID : decoded.user.id,
+            userID: decoded.user.id,
         });
 
         //console.log(newPost);
-        
+
 
         // Respond with success and the ID of the new post
         res.json({ success: true });
@@ -34,6 +34,22 @@ router.post("/create_post", async (req, res) => {
         res.status(500).json({ success: false, error: 'Internal server error' });
     }
 });
+
+router.post('/add_comment/:postId', async (req, res) => {
+    const com = req.body.comment;
+    const post_id = req.params.postId;
+    try {
+        const post = await profile.findById(post_id);
+        if (!post) {
+            return res.json("post not found");
+        }
+        post.comments.push(com);
+        await post.save();
+        res.status(200).json("post likes successfully");
+    } catch (error) {
+        console.log("Error in comment", error);
+    }
+})
 
 router.post('/search_user', async (req, res) => {
     try {
@@ -78,10 +94,10 @@ const verifyToken = (req, res, next) => {
     });
 };
 
-router.get('/get_profile_post',verifyToken, async (req, res) => {
+router.get('/get_profile_post', verifyToken, async (req, res) => {
     const userID = req.user.id;
     try {
-        const data = await profile.find({userID}); 
+        const data = await profile.find({ userID });
         res.json(data);
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -92,7 +108,7 @@ router.get('/get_profile_post',verifyToken, async (req, res) => {
 router.get('/get_profile_post/:profile_id', async (req, res) => {
     const userID = req.params.profile_id;
     try {
-        const data = await profile.find({userID}); 
+        const data = await profile.find({ userID });
         res.json(data);
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -102,7 +118,7 @@ router.get('/get_profile_post/:profile_id', async (req, res) => {
 
 router.get('/get_post', async (req, res) => {
     try {
-        const data = await profile.find(); 
+        const data = await profile.find();
         res.json(data);
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -123,27 +139,25 @@ router.get('/get_search', async (req, res) => {
     }
 });
 
-router.post('/likes_count/:postID',verifyToken,async(req,res)=>{
+router.post('/likes_count/:postID', verifyToken, async (req, res) => {
     const post_id = req.params.postID;
     const user_id = req.user.id;
     //console.log(post_id);
-    try{
+    try {
         const post = await profile.findById(post_id);
-        if(!post)
-        {
+        if (!post) {
             return res.json("post not found");
-        } 
-        if(post.likes.includes(user_id))
-        {
+        }
+        if (post.likes.includes(user_id)) {
             return res.status(400).json("user has already liked the picture");
         }
         post.likes.push(user_id);
-        post.likes_count+= 1;
+        post.likes_count += 1;
         await post.save();
         res.status(200).json("post likes successfully");
-    }catch(error){
+    } catch (error) {
         console.error('Error liking post:', error);
-    res.status(500).json({ error: 'Error liking post.' });
+        res.status(500).json({ error: 'Error liking post.' });
     }
 
 })

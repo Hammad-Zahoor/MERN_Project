@@ -41,7 +41,7 @@ const Search = () => {
                 <h1 className=''>Searches</h1>
                 <div className='profile_search'>
                     <img src={search.image} alt='Search Image' className='search-image' />
-                    <Link to='#' className='search-name'>{search.name}</Link>
+                    <Link to={`/Search_Profile/${search._id}`} className='search-name'>{search.name}</Link>
                 </div>
             </div>
             </div>

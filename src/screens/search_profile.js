@@ -3,19 +3,21 @@ import Navbar from '../components/navbar'
 import Footer from '../components/footer'
 import "../screens/profile.css"
 import { Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
-export default function Profile() {
+export default function Search_Profile() {
 
   const [profile, setprofile] = useState({})
   const [post_profile, setpost_profile] = useState([]);
+  const { _id } = useParams();
+  //const parts = userId.split("/");
+  //const Id = parts[1];
 
   const load_data = async () => {
-    const authToken = localStorage.getItem("auth_token");
-
-    let response = await fetch("http://localhost:5000/api/profile_data", {
+    //console.log(_id)
+    let response = await fetch(`http://localhost:5000/api/profile_data/${_id}`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${authToken}`,
         "Content-Type": "application/json"
       }
     })
@@ -28,12 +30,9 @@ export default function Profile() {
 
   const fetchData = async () => {
     try {
-      const authToken = localStorage.getItem("auth_token");
-      //console.log(authToken)
-      const response = await fetch("http://localhost:5000/api/get_profile_post", {
+      const response = await fetch(`http://localhost:5000/api/get_profile_post/${_id}`, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${authToken}`,
           "Content-Type": "application/json"
         }
       })

@@ -11,7 +11,7 @@ import firebaseConfig from './firebase';
 export default function Post() {
 
   const navigate = useNavigate();
-  const [post_, setpost_] = useState({ caption: "", image: "", likes: 0, comments: [], userID: "" });
+  const [post_, setpost_] = useState({ caption: "", image: "", likes_count: 0, comments: [], userID: "" });
   firebase.initializeApp(firebaseConfig);
 
   const handle_fileupload = (event) => {
